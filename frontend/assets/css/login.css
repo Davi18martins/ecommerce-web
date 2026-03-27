@@ -9,7 +9,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(145deg,#ffe600,#fff067);
+    background: linear-gradient(145deg,#ffe600,#fff177);
 }
 /*Caixa de Login*/
 .login-box{
