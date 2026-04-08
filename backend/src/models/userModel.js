@@ -8,5 +8,9 @@ const db = mysql.createConnection({
 });
 
 exports.findByEmail = (email,callback) =>{
-    
+    const sql = "SELECT * from users WHERE email = ?";
+    db.query(sql, [email], (err, result)=> {
+        if(err) throw err
+        callback(result[0]);
+    });
 }
