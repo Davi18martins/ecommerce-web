@@ -37,9 +37,12 @@ async function login(){
         alert("Login bem-sucedido!");
         if(data.role === "admin"){
             window.location.href = "dashboard-adm.html";
+            console.log("Dashboard-adm.html");
         }
         else{
             window.location.href = "dashboard-cli.html";
+            console.log("Dashboard-cli.html", data);
+
         }
     }
     else{
