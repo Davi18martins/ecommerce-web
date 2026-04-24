@@ -42,7 +42,6 @@ async function login(){
         else{
             window.location.href = "dashboard-cli.html";
             console.log("Dashboard-cli.html", data);
-
         }
     }
     else{
