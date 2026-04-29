@@ -27,6 +27,7 @@ body {
 .login-box h2 {
   margin-bottom: 25px;
   color: #666;
+  text-align: center;
 }
 
 /*Estilo do text*/
@@ -76,7 +77,22 @@ body {
 .link {
   display: block;
   margin-top: 15px;
+  margin-left: 6px;
   color: #3483fa;
   text-decoration: none;
   text-align: center;
+  font-weight: 800;
+  padding-bottom: 0px;
+}
+
+.novousuario {
+    margin-top: 15px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+
+.novousuario p{
+    margin-top: 15px;
+    color: #666;
 }
