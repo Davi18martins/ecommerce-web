@@ -8,6 +8,8 @@
 
 body {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
   background: linear-gradient(180deg, #ffe600, #f7f7aa);
 }
 
@@ -22,6 +24,10 @@ body {
 }
 
 .container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   max-width: 900px;
   margin: 40px auto;
   padding: 20px;

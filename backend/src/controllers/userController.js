@@ -22,13 +22,17 @@ exports.register = (req, res) => {
 }
 
 exports.getProfile = (req, res) => {
-
    const email = req.user.email
 
-   User.findByEmail(email, (err, result) => {
-
-       res.json(result[0])
-   })
+   User.findByEmail(email, (user) => {
+        if(!user){
+            return res.status(401).json({
+                message: "Usuário não encontrado"
+            });
+        }else{
+            res.json(result[0])
+        }
+   });
 }
 
 exports.update = (req, res) => {

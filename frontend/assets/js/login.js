@@ -36,11 +36,11 @@ async function login(){
         localStorage.setItem("role", data.role);
         alert("Login bem-sucedido!");
         if(data.role === "admin"){
-            window.location.href = "dashboard-adm.html";
+            window.location.href = "profile.html";
             console.log("Dashboard-adm.html");
         }
         else{
-            window.location.href = "dashboard-cli.html";
+            window.location.href = "profile.html";
             console.log("Dashboard-cli.html", data);
         }
     }
