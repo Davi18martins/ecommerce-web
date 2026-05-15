@@ -18,7 +18,7 @@ exports.update = (email, user, callback) => {
 }
 
 exports.delete = (email, callback) => {
-   db.query("DELETE FROM users WHERE id=?", [email], callback);
+   db.query("DELETE FROM users WHERE email=?", [email], callback);
 }
 
 exports.findByEmail = (email,callback) =>{

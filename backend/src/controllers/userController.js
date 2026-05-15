@@ -30,7 +30,7 @@ exports.getProfile = (req, res) => {
                 message: "Usuário não encontrado"
             });
         }else{
-            res.json(result[0])
+            res.json(user)
         }
    });
 }
