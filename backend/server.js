@@ -3,6 +3,10 @@ const cors = require('cors');
 const loginRoutes = require('./src/routes/loginRoutes');
 const userRoutes = require("./src/routes/userRoutes");
 
+const productRoutes = require("./src/routes/productRoutes")
+app.use("/api/products", productRoutes)
+
+
 const app = express();
 const PORT = 3000;
 
