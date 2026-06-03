@@ -4,7 +4,6 @@ const loginRoutes = require('./src/routes/loginRoutes');
 const userRoutes = require("./src/routes/userRoutes");
 
 const productRoutes = require("./src/routes/productRoutes")
-app.use("/api/products", productRoutes)
 
 
 const app = express();
@@ -17,6 +16,8 @@ app.use(express.json());
 //Routes
 app.use('/api/login', loginRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes)
+
 
 //Inicia o servidor
 app.listen(PORT, () => {
