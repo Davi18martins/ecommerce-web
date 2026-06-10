@@ -114,58 +114,60 @@ async function loadAdminProducts(){
 
 // CADASTRAR / EDITAR
 
-async function saveProduct(){
+async function saveProduct() {
+
+   let imageUrl = "";
+
+   const imageField =
+       document.getElementById("imagem");
+
+   if(
+       imageField &&
+       imageField.files.length > 0
+   ){
+
+       imageUrl =
+           await uploadImage();
+
+   }
 
    const produto = {
-
        nome:
            document.getElementById("nome").value,
-
        descricao:
            document.getElementById("descricao").value,
-
        categoria:
            document.getElementById("categoria").value,
-
        preco:
            document.getElementById("preco").value,
 
        quantidade:
            document.getElementById("quantidade").value,
-
        imagem:
-           document.getElementById("imagem").value
+           imageUrl
 
-   }
-
-   let url = API
-   let method = "POST"
-
+   };
+   let url = API;
+   let method = "POST";
    if(productId){
-
-       url = `${API}/${productId}`
-       method = "PUT"
-
+       url = `${API}/${productId}`;
+       method = "PUT";
    }
-
-   const response = await fetch(url,{
-
-       method,
-
-       headers:{
-           "Content-Type":"application/json"
-       },
-
-       body: JSON.stringify(produto)
-
-   })
-
-   const data = await response.json()
-
-   alert(data.message)
-
+   const response =
+       await fetch(url, {
+           method,
+           headers:{
+               "Content-Type":
+               "application/json"
+           },
+           body:
+               JSON.stringify(produto)
+       });
+   const data =
+       await response.json();
+   alert(data.message);
    window.location.href =
-       "admin-products.html"
+       "admin-products.html";
 }
 
 // CARREGAR PRODUTO PARA EDIÇÃO
@@ -194,8 +196,19 @@ async function loadProduct(){
    document.getElementById("quantidade").value =
        product.quantidade
 
-   document.getElementById("imagem").value =
-       product.imagem
+   const preview =
+   document.getElementById("preview");
+
+if(product.imagem){
+
+   preview.src =
+       product.imagem;
+
+   preview.style.display =
+       "block";
+
+}
+
 
 }
 
@@ -229,6 +242,61 @@ async function deleteProduct(id){
    alert(data.message)
 
    loadAdminProducts()
+
+}
+
+const imageInput =
+   document.getElementById("imagem");
+
+if(imageInput){
+
+   imageInput.addEventListener(
+       "change",
+       function(){
+           const file =
+               this.files[0];
+           if(!file) return;
+           const preview =
+               document.getElementById("preview");
+           preview.src =
+               URL.createObjectURL(file);
+           preview.style.display =
+               "block";
+       }
+   );
+}
+async function uploadImage(){
+
+   const imageFile =
+       document.getElementById("imagem")
+       .files[0];
+
+   if(!imageFile){
+
+       return "";
+
+   }
+
+   const formData =
+       new FormData();
+
+   formData.append(
+       "imagem",
+       imageFile
+   );
+
+   const response =
+       await fetch(
+           "http://localhost:3000/api/products/upload",
+           {
+               method:"POST",
+               body: formData
+           }
+       );
+   const data =
+       await response.json();
+
+   return data.imageUrl;
 
 }
 
