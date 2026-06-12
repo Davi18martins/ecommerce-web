@@ -1,4 +1,5 @@
-const Product = require("../models/productModel")
+const Product = require("../models/productModel");
+const cloudinary = require("../config/cloudinary");
 
 exports.getAll = (req,res)=>{
 
@@ -96,16 +97,66 @@ exports.delete = (req,res)=>{
 
 };
 
-exports.uploadImage = (req, res) => {
-   if (!req.file) {
-       return res.status(400).json({
+exports.uploadImage =
+async (req,res)=>{
 
-           message: "Nenhuma imagem enviada"
+   try{
+
+       if(!req.file){
+
+           return res.status(400).json({
+
+               message:
+                   "Nenhuma imagem enviada"
+
+           });
+
+       }
+
+       const base64 =
+
+           `data:${req.file.mimetype};base64,${
+               req.file.buffer.toString(
+                   "base64"
+               )
+           }`;
+
+       const result =
+
+           await cloudinary
+               .uploader
+               .upload(
+
+                   base64,
+
+                   {
+
+                       folder:
+                           "ecommerce-produtos"
+
+                   }
+
+               );
+
+       res.json({
+
+           imageUrl:
+               result.secure_url
 
        });
+
    }
-   res.json({
-       imageUrl:
-           `http://localhost:3000/uploads/${req.file.filename}`
-   });
-};
+   catch(error){
+
+       console.error(error);
+
+       res.status(500).json({
+
+           message:
+               "Erro ao enviar imagem"
+
+       });
+
+   }
+
+}

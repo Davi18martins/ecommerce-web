@@ -1,24 +1,54 @@
 const multer = require("multer");
 
-const storage = multer.diskStorage({
+const storage =
+   multer.memoryStorage();
 
-   destination: (req, file, cb) => {
+const upload =
+   multer({
 
-       cb(null, "uploads/");
+       storage,
 
-   },
+       limits: {
 
-   filename: (req, file, cb) => {
+           fileSize:
+               2 * 1024 * 1024
 
-       const uniqueName =
-           Date.now() + "-" + file.originalname;
+       },
 
-       cb(null, uniqueName);
+       fileFilter:
+           (req,file,cb)=>{
 
-   }
+               const allowed = [
 
-});
+                   "image/jpeg",
+                   "image/png",
+                   "image/webp"
 
-const upload = multer({ storage });
+               ];
+
+               if(
+
+                   allowed.includes(
+                       file.mimetype
+                   )
+
+               ){
+
+                   cb(null,true);
+
+               }
+               else{
+
+                   cb(
+                       new Error(
+                           "Formato inválido"
+                       )
+                   );
+
+               }
+
+           }
+
+   });
 
 module.exports = upload;
